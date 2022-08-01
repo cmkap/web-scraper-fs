@@ -9,7 +9,7 @@
 
     <h1>Event Web Scraper</h1>
     <h4>Add a new event</h4>
-    <input type="text" placeholder="paste url" />
+    <input class="event-input"type="text" placeholder="paste url" />
     <button type="submit" onclick="submitEvent()">submit</button>
 
     <div class="container"></div>
@@ -17,8 +17,14 @@
     <script>
 
         function submitEvent() {
-            const eventValue = document.querySelector('.event-input').value;
-            // send to server
+            const eventURL = document.querySelector('.event-input').value;
+            fetch('http://localhost:8000/events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({eventURL})
+            })// send to server
         }
 
         function newEl(type, attrs={}) {
@@ -31,39 +37,23 @@
             return el
         }
 
-        const events = [
-            {"name":"Galopin Des Champs","odds":"7/2"},
-            {"name":"A Plus Tard","odds":"4/1"},
-            {"name":"Ahoy Senor","odds":"9/1"},
-            {"name":"Lhomme Presse","odds":"10/1"},
-            {"name":"Allaho","odds":"10/1"},
-            {"name":"Monkfish","odds":"16/1"},
-            {"name":"Stattler","odds":"16/1"},
-            {"name":"Capodanno","odds":"20/1"},
-            {"name":"Bravemansgame","odds":"25/1"},
-            {"name":"Farouk Dalene","odds":"25/1"},
-            {"name":"Galvin","odds":"25/1"},
-            {"name":"Minella Indo","odds":"25/1"},
-            {"name":"Shishkin","odds":"25/1"},
-            {"name":"Bob Olinger","odds":"33/1"},
-            {"name":"My Drogo","odds":"33/1"},
-            {"name":"Protektorat","odds":"33/1"},
-            {"name":"Eldorado Allen","odds":"33/1"}
-        ]
+        async function loadEvents() {
+            const res = await fetch('http://localhost:8000/events')
+            const events = await res.json();
 
-        const ctr = document.querySelector('.container');
+            const ctr = document.querySelector('.container');
 
-        events.forEach(event => {
-            const card = newEl('div', {class: 'card'});
-            const name = newEl('h4', {innerText: event.name});
-            const odds = newEl('h3', {innerText: event.odds});
-            card.appendChild(name);
-            card.appendChild(odds)
-            ctr.appendChild(card);
+            events.forEach(event => {
+                const card = newEl('div', {class: 'card'});
+                const name = newEl('h4', {innerText: event.name});
+                const odds = newEl('h3', {innerText: event.odds});
+                card.appendChild(name);
+                card.appendChild(odds)
+                ctr.appendChild(card);
+            })
+        }
 
-        })
-
-        
+        loadEvents()
      
     </script>
 
