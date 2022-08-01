@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Event Web Scraper</h1>
+    <h4>Add a new event</h4>
+    <input type="text" placeholder="paste url" />
+    <button type="submit" onclick="submitEvent()">submit</button>
+
+    <div class="container"></div>
+
+    <script>
+
+        function submitEvent() {
+            const eventValue = document.querySelector('.event-input').value;
+            // send to server
+        }
+
+        function newEl(type, attrs={}) {
+            const el = document.createElement(type);
+            for (let attr in attrs) {
+                const value = attrs[attr];
+                if (attr == 'innerText') el.innerText = value;
+                else el.setAttribute(attr, value);
+            }
+            return el
+        }
+
+        const events = [
+            {"name":"Galopin Des Champs","odds":"7/2"},
+            {"name":"A Plus Tard","odds":"4/1"},
+            {"name":"Ahoy Senor","odds":"9/1"},
+            {"name":"Lhomme Presse","odds":"10/1"},
+            {"name":"Allaho","odds":"10/1"},
+            {"name":"Monkfish","odds":"16/1"},
+            {"name":"Stattler","odds":"16/1"},
+            {"name":"Capodanno","odds":"20/1"},
+            {"name":"Bravemansgame","odds":"25/1"},
+            {"name":"Farouk Dalene","odds":"25/1"},
+            {"name":"Galvin","odds":"25/1"},
+            {"name":"Minella Indo","odds":"25/1"},
+            {"name":"Shishkin","odds":"25/1"},
+            {"name":"Bob Olinger","odds":"33/1"},
+            {"name":"My Drogo","odds":"33/1"},
+            {"name":"Protektorat","odds":"33/1"},
+            {"name":"Eldorado Allen","odds":"33/1"}
+        ]
+
+        const ctr = document.querySelector('.container');
+
+        events.forEach(event => {
+            const card = newEl('div', {class: 'card'});
+            const name = newEl('h4', {innerText: event.name});
+            const odds = newEl('h3', {innerText: event.odds});
+            card.appendChild(name);
+            card.appendChild(odds)
+            ctr.appendChild(card);
+
+        })
+
+        
+     
+    </script>
+
+    <style>
+        
+        .container {
+            display: flex;
+           
+        }
+        .card {
+            margin: 5px;
+            padding: 20px;
+           border: 1px solid white;
+        }
+    </style>
+
+</body>
+</html>
