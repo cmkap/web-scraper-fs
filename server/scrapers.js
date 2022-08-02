@@ -25,4 +25,4 @@ async function scrapeEvent(url) {
 
 }
 
-scrapeEvent('https://sports.bwin.com/en/sports/horse-racing-29/fixtures/cheltenham-gold-cup-chase-2023-2:3119903')
+module.exports = scrapeEvent;
