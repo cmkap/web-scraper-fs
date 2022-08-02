@@ -4,6 +4,8 @@ const PORT= 8000
 
 const bodyParser = require('body-parser');
 
+const scrapers = require('./scrapers')
+
 app.use(bodyParser.json())
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); //disabled for security on local
@@ -27,7 +29,7 @@ app.get('/events', async (req, res) => {
 
 app.post('/events', async(req, res) => {
     console.log(req, res)
-    // todo: Scrape channel
+    const eventData = await scrapers.scrapeEvent(req.body.eventURL)// Scrape event
     // todo: Add to DB
     res.send('success')
 })

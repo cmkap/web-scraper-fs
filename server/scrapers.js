@@ -25,4 +25,6 @@ async function scrapeEvent(url) {
 
 }
 
-module.exports = scrapeEvent;
+module.exports = {
+    scrapeEvent
+}
