@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const PORT= 8000
+const port =  process.env.PORT || 8000
 
 const bodyParser = require('body-parser');
 
@@ -37,4 +37,4 @@ app.post('/events', async(req, res) => {
 
 
 
-app.listen(PORT, () => console.log(`App listening on port ${PORT}`))
+app.listen(port, () => console.log(`App listening on port ${port}`))
