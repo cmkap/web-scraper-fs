@@ -28,8 +28,9 @@ app.get('/events', async (req, res) => {
 })
 
 app.post('/events', async(req, res) => {
-    console.log(req, res)
+    console.log(req.body)
     const eventData = await scrapers.scrapeEvent(req.body.eventURL)// Scrape event
+    console.log(eventData)
     // todo: Add to DB
     res.send('success')
 })
