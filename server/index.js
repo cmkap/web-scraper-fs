@@ -1,17 +1,14 @@
-
 const express = require('express')
+const bodyParser = require('body-parser');
 const connectDB = require('./config/db')
+const events = require('./routes/api/events')
+
+const port =  process.env.PORT || 8000
 
 const app = express()
 
 // Connect Database
 connectDB(); 
-const port =  process.env.PORT || 8000
-
-
-const bodyParser = require('body-parser');
-
-const scrapers = require('./scrapers')
 
 app.use(bodyParser.json())
 app.use(function(req, res, next) {
@@ -20,28 +17,6 @@ app.use(function(req, res, next) {
     next();
 })
 
-app.get('/events', async (req, res) => {
-    const events = [
-        {"name":"Allaho","odds":"10/1"},
-        {"name":"Monkfish","odds":"16/1"},
-        {"name":"Stattler","odds":"16/1"},
-        {"name":"Capodanno","odds":"20/1"},
-        {"name":"Bravemansgame","odds":"25/1"}
-    ]
-
-    // todo GET from Database
-    res.send(events)
-  
-})
-
-app.post('/events', async(req, res) => {
-    console.log(req.body)
-    const eventData = await scrapers.scrapeEvent(req.body.eventURL)// Scrape event
-    console.log(eventData)
-    // todo: Add to DB
-    res.send('success')
-})
-
-
+app.use('/events', events)
 
 app.listen(port, () => console.log(`App listening on port ${port}`))
