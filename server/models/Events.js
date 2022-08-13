@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const EventSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -11,4 +12,4 @@ const EventSchema = new mongoose.Schema({
     }
 });
 
-module.exports = Events = mongoose.model('events', EventSchema)
+module.exports = Events = mongoose.model('Events', EventSchema)

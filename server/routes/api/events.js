@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 //Load Events model
-const Events = require('../../models/Events')
+const eventsModel = require('../../models/Events')
 
 const scrapers = require('../../scrapers')
 
@@ -36,8 +36,20 @@ router.get('/', async (req, res) => {
 
 router.post('/', async(req, res) => {
     console.log(req.body)
-    const eventData = await scrapers.scrapeEvent(req.body.eventURL)// Scrape event
-    console.log(eventData)
+    const eventsData = await scrapers.scrapeEvent(req.body.eventURL)// Scrape event
+    console.log(eventsData)
+   
+    const eventsDataResponse = eventsData.forEach(async(eventData) => {
+        const event = new eventsModel(eventData)
+        console.log(eventData)
+        try {
+            await event.save();
+            // res.send(event);
+            
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    })
     // todo: Add to DB
     res.send('success')
 })

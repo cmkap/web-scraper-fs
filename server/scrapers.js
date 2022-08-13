@@ -25,7 +25,7 @@ async function scrapeEvent(url) {
 
     browser.close();
 
-    console.log(riders)
+    
 
     return riders
 
