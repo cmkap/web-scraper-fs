@@ -21,15 +21,16 @@ router.use((req, res, next) => {
 router.get('/test', (req, res) => res.send('event route testing!'));
 
 router.get('/', async (req, res) => {
-    const events = [
-        {"name":"Allaho","odds":"10/1"},
-        {"name":"Monkfish","odds":"16/1"},
-        {"name":"Stattler","odds":"16/1"},
-        {"name":"Capodanno","odds":"20/1"},
-        {"name":"Bravemansgame","odds":"25/1"}
-    ]
+    // const events = [
+    //     {"name":"Allaho","odds":"10/1"},
+    //     {"name":"Monkfish","odds":"16/1"},
+    //     {"name":"Stattler","odds":"16/1"},
+    //     {"name":"Capodanno","odds":"20/1"},
+    //     {"name":"Bravemansgame","odds":"25/1"}
+    // ]
 
     // todo GET from Database
+    const events =  await eventsModel.find()
     res.send(events)
   
 })
@@ -50,7 +51,6 @@ router.post('/', async(req, res) => {
             res.status(500).send(error);
         }
     })
-    // todo: Add to DB
     res.send('success')
 })
 
